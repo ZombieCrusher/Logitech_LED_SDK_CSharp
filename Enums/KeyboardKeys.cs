@@ -2,14 +2,14 @@
 namespace LogitechSDK
 #pragma warning restore IDE0130
 {
-    public enum KeyboardNames
+    public enum KeyboardKeys
     {
         ESC = 0x01,
-        F1 = 0x3b,
-        F2 = 0x3c,
-        F3 = 0x3d,
-        F4 = 0x3e,
-        F5 = 0x3f,
+        F1 = 0x3B,
+        F2 = 0x3C,
+        F3 = 0x3D,
+        F4 = 0x3E,
+        F5 = 0x3F,
         F6 = 0x40,
         F7 = 0x41,
         F8 = 0x42,
