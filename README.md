@@ -66,30 +66,6 @@ Initialization can fail if the required Logitech software/runtime is unavailable
 - [`Documentation/Instructions_SDK.pdf`](Documentation/Instructions_SDK.pdf) contains the original SDK instructions.
 - [`Header/LogitechLEDLib.h`](Header/LogitechLEDLib.h) provides the native SDK declarations used as reference.
 
-## Releasing
-
-There is currently no automated release workflow or published NuGet package configured in this repository. To make a Windows binary release:
-
-1. Update and verify the source, then build both supported architectures:
-
-   ```powershell
-   dotnet publish .\LogitechSDK.csproj -c Release -p:Platform=x64
-   dotnet publish .\LogitechSDK.csproj -c Release -p:Platform=x86
-   ```
-
-2. Check the publish output for each architecture under `bin\x64\Release\net10.0\publish` and `bin\x86\Release\net10.0\publish`. Confirm that the matching `LogitechLedEnginesWrapper.dll` is present alongside the assembly.
-3. Package each architecture's publish output separately. Include the license and any user-facing documentation needed by consumers. Do not redistribute Logitech's native binaries unless their applicable terms permit it.
-4. Create a version tag, for example `v1.0.0`, and push it:
-
-   ```powershell
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
-
-5. On GitHub, create a Release from that tag, add concise release notes, and attach the x64 and x86 archives. State the required .NET runtime and Windows architecture in the release notes.
-
-These commands produce framework-dependent builds; users need a compatible .NET runtime. If the project target framework, versioning, or release automation changes, update these instructions to match.
-
 ## Contributing
 
 Bug reports and focused improvements are welcome. Before opening a pull request:
