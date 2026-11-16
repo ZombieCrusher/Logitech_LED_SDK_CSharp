@@ -15,7 +15,7 @@
 		Never used MAC so idk if anything is required 
 	-->
 	<RuntimeIdentifiers>win-x86;win-x64<!--;win-arm64;osx-x64;osx-arm64--></RuntimeIdentifiers>
-	<Platforms>x64;x86</Platforms>
+	  <Platforms>x64;x86</Platforms>
 	  
 	<!-- 
 		Do not need this for now?
@@ -40,14 +40,14 @@
 	<ItemGroup>
 		
 		<!-- 32 bit version -->
-		<None Update="Library\x86\LogitechLedEnginesWrapper.dll" Condition = "'$(Platform)' == 'x86' Or '$(RuntimeIdentifier)' == 'win-x86'" >
+		<None Update="Library\x86\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == 'win-x86' Or '$(Platform)' == 'x86'">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
 	  
 		<!-- 64 bit version -->
-		<None Update="Library\x64\LogitechLedEnginesWrapper.dll" Condition="'$(Platform)' == 'x64' Or '$(RuntimeIdentifier)' == 'win-x64'" >
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == 'win-x64' Or '$(Platform)' == 'x64'">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
