@@ -11,25 +11,25 @@ namespace LogitechSDK
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
         internal static extern bool LogiLedInitWithName( string name );
 
-        //Config option functions
+        // ------------------ Config option functions ---------------------------
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
-        internal static extern bool LogiLedGetConfigOptionNumber( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, ref double defaultNumber );
+        internal static extern bool LogiLedGetConfigOptionNumber( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, out double defaultNumber );
 
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
-        internal static extern bool LogiLedGetConfigOptionBool( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, ref bool defaultRed );
+        internal static extern bool LogiLedGetConfigOptionBool( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, out bool defaultRed );
 
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
-        internal static extern bool LogiLedGetConfigOptionColor( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, ref int defaultRed, ref int defaultGreen, ref int defaultBlue );
+        internal static extern bool LogiLedGetConfigOptionColor( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, out int defaultRed, out int defaultGreen, out int defaultBlue );
 
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode ) ]
         internal static extern bool LogiLedGetConfigOptionKeyInput( [ MarshalAs( UnmanagedType.LPWStr ) ] string configPath, StringBuilder buffer, int bufsize );
-        /////////////////////
+        // ----------------------------------------------------------------------
 
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
         internal static extern bool LogiLedSetTargetDevice( int targetDevice );
 
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
-        internal static extern bool LogiLedGetSdkVersion( ref int majorNum, ref int minorNum, ref int buildNum );
+        internal static extern bool LogiLedGetSdkVersion( out int majorNum, out int minorNum, out int buildNum );
 
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
         internal static extern bool LogiLedSaveCurrentLighting();
