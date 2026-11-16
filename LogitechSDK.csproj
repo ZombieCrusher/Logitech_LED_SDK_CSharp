@@ -21,6 +21,14 @@
 	  
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Documentation\ExampleImplementation.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Documentation\ExampleImplementation.cs" />
+  </ItemGroup>
+
 	<ItemGroup>
 		
 		<!-- 32 bit version -->
