@@ -173,9 +173,9 @@ namespace LogitechSDK
             LogitechNative.LogiLedShutdown();
         }
 
-        private static byte ClampColorValueToPercentage( float Value )
+        private static sbyte ClampColorValueToPercentage( float Value )
         {
-            return (byte)Math.Clamp( ( Value / 255 ) * 100, 0f, 100f );
+            return (sbyte)Math.Clamp( ( Value / 255 ) * 100, 0f, 100f );
         }
     }
 }
