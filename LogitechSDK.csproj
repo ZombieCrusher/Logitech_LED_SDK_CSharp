@@ -6,42 +6,48 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+	<!-- 
+		-r < identifier > on dotnet.exe amd args, thats why took time to figure it out
+		Support for Godot specific ones, took me a while to figure it out
+		Never used unity so i do not know
+		Logitech has linux support for this SDK? Do not think so
+		Never used MAC so idk if anything is required 
+	-->
+	<RuntimeIdentifiers>win-x86;win-x64<!--;win-arm64;osx-x64;osx-arm64--></RuntimeIdentifiers>
+	<Platforms>x64;x86</Platforms>
 	  
-	<!-- Support for Godot specific ones, took me a while to figure it out -->
-	<!-- Do we have linux support for this SDK? Do not think so -->
-	<RuntimeIdentifiers>win-x86;win-x64;<!--linux-x86;linux-x64--></RuntimeIdentifiers>
-	  
-	<!-- Do not need this for now?
-	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x86'">$(DefineConstants);PLATFORM_WIN32</DefineConstants>
-	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);PLATFORM_WIN64</DefineConstants>
-	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x86'">$(DefineConstants);PLATFORM_LINUX32</DefineConstants>
-	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);PLATFORM_LINUX64</DefineConstants>
-	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64'">$(DefineConstants);PLATFORM_OSX64</DefineConstants> 
+	<!-- 
+		Do not need this for now?
+		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x86'">$(DefineConstants);PLATFORM_WIN32</DefineConstants>
+		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);PLATFORM_WIN64</DefineConstants>
+		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x86'">$(DefineConstants);PLATFORM_LINUX32</DefineConstants>
+		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);PLATFORM_LINUX64</DefineConstants>
+		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x86'">$(DefineConstants);PLATFORM_MAC32</DefineConstants>
+		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64'">$(DefineConstants);PLATFORM_MAC64</DefineConstants> 
 	-->
 	  
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Documentation\ExampleImplementation.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Documentation\ExampleImplementation.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="Documentation\ExampleImplementation.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="Documentation\ExampleImplementation.cs" />
+	</ItemGroup>
 
 	<ItemGroup>
 		
 		<!-- 32 bit version -->
-		<None Update="Library\x86\LogitechLedEnginesWrapper.dll">
-			<Condition> Condition="'$(RuntimeIdentifier)' == 'win-x86'"</Condition>
+		<None Update="Library\x86\LogitechLedEnginesWrapper.dll" Condition = "'$(Platform)' == 'x86' Or '$(RuntimeIdentifier)' == 'win-x86'" >
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
 	  
 		<!-- 64 bit version -->
-		<None Update="Library\x64\LogitechLedEnginesWrapper.dll">
-			<Condition> Condition="'$(RuntimeIdentifier)' == 'win-x64'"</Condition>
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll" Condition="'$(Platform)' == 'x64' Or '$(RuntimeIdentifier)' == 'win-x64'" >
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>

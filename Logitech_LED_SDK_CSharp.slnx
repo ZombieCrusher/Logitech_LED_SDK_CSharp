@@ -1,4 +1,9 @@
 <Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
   <Project Path="LogitechSDK.csproj">
+    <Platform Project="x64" />
   </Project>
 </Solution>
