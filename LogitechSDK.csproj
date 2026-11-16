@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	  
+	<!-- Support for Godot specific ones, took me a while to figure it out -->
+	<!-- Do we have linux support for this SDK? Do not think so -->
+	<RuntimeIdentifiers>win-x86;win-x64;<!--linux-x86;linux-x64--></RuntimeIdentifiers>
+	  
+	<!-- Do not need this for now?
+	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x86'">$(DefineConstants);PLATFORM_WIN32</DefineConstants>
+	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);PLATFORM_WIN64</DefineConstants>
+	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x86'">$(DefineConstants);PLATFORM_LINUX32</DefineConstants>
+	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);PLATFORM_LINUX64</DefineConstants>
+	<DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64'">$(DefineConstants);PLATFORM_OSX64</DefineConstants> 
+	-->
+	  
+  </PropertyGroup>
+
+	<ItemGroup>
+		
+		<!-- 32 bit version -->
+		<None Update="Library\x86\LogitechLedEnginesWrapper.dll">
+			<Condition> Condition="'$(RuntimeIdentifier)' == 'win-x86'"</Condition>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+	  
+		<!-- 64 bit version -->
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll">
+			<Condition> Condition="'$(RuntimeIdentifier)' == 'win-x64'"</Condition>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+	  
+  </ItemGroup>
+	
+</Project>

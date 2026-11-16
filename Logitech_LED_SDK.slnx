@@ -1,3 +1,7 @@
 <Solution>
-  <Project Path="Logitech_LED_SDK.csproj" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+  </Configurations>
+  <Project Path="LogitechSDK.csproj">
+  </Project>
 </Solution>
