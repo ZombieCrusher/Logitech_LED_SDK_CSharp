@@ -14,17 +14,13 @@
 		Logitech has linux support for this SDK? Do not think so
 		Never used MAC so idk if anything is required 
 	-->
-	<RuntimeIdentifiers>win-x86;win-x64<!--;win-arm64;osx-x64;osx-arm64--></RuntimeIdentifiers>
+	<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
 	  <Platforms>x64;x86</Platforms>
 	  
 	<!-- 
 		Do not need this for now?
 		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x86'">$(DefineConstants);PLATFORM_WIN32</DefineConstants>
 		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);PLATFORM_WIN64</DefineConstants>
-		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x86'">$(DefineConstants);PLATFORM_LINUX32</DefineConstants>
-		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);PLATFORM_LINUX64</DefineConstants>
-		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x86'">$(DefineConstants);PLATFORM_MAC32</DefineConstants>
-		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'osx-x64'">$(DefineConstants);PLATFORM_MAC64</DefineConstants> 
 	-->
 	  
   </PropertyGroup>
@@ -39,20 +35,34 @@
 
 	<ItemGroup>
 		
-		<!-- 32 bit version -->
-		<None Update="Library\x86\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == 'win-x86' Or '$(Platform)' == 'x86'">
+		<!-- 32-bit: Only when Platform is explicitly x86 -->
+		<None Update="Library\x86\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == '' And '$(Platform)' == 'x86' And ('$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release')">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
-	  
-		<!-- 64 bit version -->
-		<None Update="Library\x64\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == 'win-x64' Or '$(Platform)' == 'x64'">
+
+		<!-- 64-bit: Default for AnyCPU or x64 when no -r flag is passed -->
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll"
+			  Condition="'$(RuntimeIdentifier)' == '' And '$(Platform)' != 'x86' And ('$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release')">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
-	  
-  </ItemGroup>
+
+		<None Update="Library\x86\LogitechLedEnginesWrapper.dll"
+			  Condition="'$(RuntimeIdentifier)' == 'win-x86'">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll"
+			  Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+			<TargetPath>%(Filename)%(Extension)</TargetPath>
+		</None>
+	</ItemGroup>
 	
 </Project>
