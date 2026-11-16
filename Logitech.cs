@@ -21,28 +21,17 @@ namespace LogitechSDK
         // public const int LOGITECH_LED_BITMAP_BYTES_PER_KEY = 4;
 
         // public const int LOGITECH_LED_BITMAP_SIZE = LOGITECH_LED_BITMAP_WIDTH * LOGITECH_LED_BITMAP_HEIGHT * LOGITECH_LED_BITMAP_BYTES_PER_KEY;
-        public const int CONST_LED_DURATION_INFINITE = 0;
+        // public const int CONST_LED_DURATION_INFINITE = 0;
 
         private static bool _isInitialised = false;
 
-        public static bool Init()
+        public static bool InitialiseAPI()
         {
-            if( _isInitialised )
-            {
-                return true;
-            }
-
-            _isInitialised = LogitechNative.LogiLedInit();
-            return _isInitialised;
+            return LogitechNative.LogiLedInit();
         }
 
         public static void Shutdown()
         {
-            if( !_isInitialised)
-            {
-                return;
-            }
-
             LogitechNative.LogiLedShutdown();
         }
 
@@ -61,9 +50,28 @@ namespace LogitechSDK
             LogitechNative.LogiLedSetLightingForKeyWithKeyName( Key, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
         }
 
-        public static void SetLEDLightForTargetZone( DeviceType Device, TargetZoneHeadset Zone, Color NewColor )
+        public static void SetLEDLightForTargetZoneForHeadset( TargetZoneHeadset Zone, Color NewColor )
         {
-            LogitechNative.LogiLedSetLightingForTargetZone( Device, ( byte )Zone, 100, 0, 0);
+            LogitechNative.LogiLedSetLightingForTargetZone( DeviceType.HEADSET, (byte)Zone, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
+        }
+
+        public static void SetLEDLightForTargetZoneForKeyboard( TargetZoneKeyboard Zone, Color NewColor )
+        {
+            LogitechNative.LogiLedSetLightingForTargetZone( DeviceType.KEYBOARD, (byte)Zone, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
+        }
+        public static void SetLEDLightForTargetZoneForMouse( TargetZoneMouse Zone, Color NewColor )
+        {
+            LogitechNative.LogiLedSetLightingForTargetZone( DeviceType.MOUSE, (byte)Zone, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
+        }
+
+        public static void SetLEDLightForTargetZoneForMouseMat( TargetZoneMouseMat Zone, Color NewColor )
+        {
+            LogitechNative.LogiLedSetLightingForTargetZone( DeviceType.MOUSE_MAT, (byte)Zone, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
+        }
+
+        public static void SetLEDLightForTargetZoneForSpeaker( TargetZoneSpeaker Zone, Color NewColor )
+        {
+            LogitechNative.LogiLedSetLightingForTargetZone( DeviceType.SPEAKER, (byte)Zone, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
         }
 
         private static byte ClampColorValueToPercentage( float Value )
