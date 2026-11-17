@@ -8,7 +8,7 @@ namespace LogitechSDK
         [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
         internal static extern bool LogiLedInit();
 
-        [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl ) ]
+        [ DllImport( "LogitechLedEnginesWrapper.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode ) ]
         internal static extern bool LogiLedInitWithName( string name );
 
         // ------------------ Config option functions ---------------------------

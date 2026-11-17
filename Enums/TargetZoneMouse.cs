@@ -2,14 +2,15 @@
 namespace LogitechSDK
 #pragma warning restore IDE0130
 {
-    // This is the generic value enum working with most mice but logitech did some mess
-    // i.e [ 1 gets invalid and logo with other buttons zone becomes 0 ]
-    // So it will be better to set color both zones unless the model is known
-    // For Example: G203 mouse has these color zones ( back and logo ) combined
-    // so 0 needs to be used to set color as 1 would not work
+    /// <summary>
+    /// Identifies a generic lighting zone on a compatible mouse.
+    /// </summary>
+    /// <remarks>Mouse zone availability and mapping vary by model; some models combine zones or do not support every value.</remarks>
     public enum TargetZoneMouse : sbyte
     {
+        /// <summary>Generic non-logo or combined mouse lighting zone.</summary>
         OTHER_SIDE = 0,
+        /// <summary>Mouse logo zone when supported by the model.</summary>
         LOGO_SIDE = 1
     }
 }

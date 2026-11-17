@@ -3,25 +3,12 @@
   <PropertyGroup>
 	  
     <TargetFramework>net10.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
-	<!-- 
-		-r < identifier > on dotnet.exe amd args, thats why took time to figure it out
-		Support for Godot specific ones, took me a while to figure it out
-		Never used unity so i do not know
-		Logitech has linux support for this SDK? Do not think so
-		Never used MAC so idk if anything is required 
-	-->
 	<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
 	  <Platforms>x64;x86</Platforms>
-	  
-	<!-- 
-		Do not need this for now?
-		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x86'">$(DefineConstants);PLATFORM_WIN32</DefineConstants>
-		<DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);PLATFORM_WIN64</DefineConstants>
-	-->
 	  
   </PropertyGroup>
 
@@ -43,26 +30,29 @@
 		</None>
 
 		<!-- 64-bit: Default for AnyCPU or x64 when no -r flag is passed -->
-		<None Update="Library\x64\LogitechLedEnginesWrapper.dll"
-			  Condition="'$(RuntimeIdentifier)' == '' And '$(Platform)' != 'x86' And ('$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release')">
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == '' And '$(Platform)' != 'x86' And ('$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release')">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
 
-		<None Update="Library\x86\LogitechLedEnginesWrapper.dll"
-			  Condition="'$(RuntimeIdentifier)' == 'win-x86'">
+		<None Update="Library\x86\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == 'win-x86'">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
 
-		<None Update="Library\x64\LogitechLedEnginesWrapper.dll"
-			  Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+		<None Update="Library\x64\LogitechLedEnginesWrapper.dll" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 			<TargetPath>%(Filename)%(Extension)</TargetPath>
 		</None>
+	
 	</ItemGroup>
+
+	<!-- IDK some stuff, someone explain -->
+	<Target Name="CopyXmlDocsToReferenceAssembly" AfterTargets="Build" Condition="'$(GenerateDocumentationFile)' == 'true' and Exists('$(DocumentationFile)')">
+		<Copy SourceFiles="$(DocumentationFile)" DestinationFiles="$(IntermediateOutputPath)ref\$(AssemblyName).xml" SkipUnchangedFiles="true" />
+	</Target>
 	
 </Project>

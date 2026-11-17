@@ -48,7 +48,7 @@ if (!Logitech.InitialiseAPI())
 try
 {
     Logitech.SetLEDTargetDevice(TargetDevice.ALL);
-    Logitech.SetLEDLight(Color.Black);
+    Logitech.SetLEDLighting(Color.Black);
     Logitech.SetLEDLightOfKeyboardKey(KeyboardKeys.G, Color.Lime);
 }
 finally
@@ -61,6 +61,7 @@ Initialization can fail if the required Logitech software/runtime is unavailable
 
 ## Documentation and example
 
+- [`Documentation/DeveloperGuide.md`](Documentation/DeveloperGuide.md) documents the public C# API, lifecycle, enums, bitmap format, and troubleshooting.
 - [`Documentation/ExampleImplementation.cs`](Documentation/ExampleImplementation.cs) contains a larger sample using the native SDK calls.
 - [`Documentation/Instructions_SDK_C%23.pdf`](Documentation/Instructions_SDK_C%23.pdf) contains the C# SDK instructions.
 - [`Documentation/Instructions_SDK.pdf`](Documentation/Instructions_SDK.pdf) contains the original SDK instructions.
