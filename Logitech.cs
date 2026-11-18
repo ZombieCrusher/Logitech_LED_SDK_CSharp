@@ -28,6 +28,14 @@ namespace LogitechSDK
         }
 
         /// <summary>
+        /// Shuts down the Logitech LED SDK and releases its native resources.
+        /// </summary>
+        public static void Shutdown()
+        {
+            LogitechNative.LogiLedShutdown();
+        }
+
+        /// <summary>
         /// Gets the numeric value of a Logitech SDK configuration option.
         /// </summary>
         /// <param name="Configpath">The path identifying the configuration option.</param>
@@ -169,9 +177,12 @@ namespace LogitechSDK
         /// </summary>
         /// <param name="Keys">The keys to exclude from bitmap updates.</param>
         /// <returns><see langword="true"/> if the exclusions are set; otherwise, <see langword="false"/>.</returns>
-        public static bool ExcludeLEDKeysFromBitmap( KeyboardKeys[] Keys )
+        public unsafe static bool ExcludeLEDKeysFromBitmap( KeyboardKeys[] Keys )
         {
-            return LogitechNative.LogiLedExcludeKeysFromBitmap( Keys, Keys.Length );
+            fixed( KeyboardKeys* KeysPtr = Keys )
+            {
+                return LogitechNative.LogiLedExcludeKeysFromBitmap( ( int* )KeysPtr, Keys.Length );
+            }
         }
 
         /// <summary>
@@ -180,9 +191,12 @@ namespace LogitechSDK
         /// <param name="bytes">The bitmap data, containing four RGBA bytes for each grid position.</param>
         /// <returns><see langword="true"/> if the bitmap is applied; otherwise, <see langword="false"/>.</returns>
         /// <remarks>Provide <see cref="Bitmap.SIZE"/> bytes. An alpha value of zero leaves the corresponding key unchanged.</remarks>
-        public static bool SetLEDLightingFromBitmap( byte[] bytes ) 
+        public unsafe static bool SetLEDLightingFromBitmap( byte[] bytes ) 
         {
-            return LogitechNative.LogiLedSetLightingFromBitmap( bytes );
+            fixed( byte* bitmapPtr = bytes )
+            {
+                return LogitechNative.LogiLedSetLightingFromBitmap( bitmapPtr );
+            }
         }
 
         /// <summary>
@@ -339,14 +353,6 @@ namespace LogitechSDK
         public static bool SetLEDLightForTargetZoneForSpeaker( TargetZoneSpeaker Zone, Color NewColor )
         {
             return LogitechNative.LogiLedSetLightingForTargetZone( DeviceType.SPEAKER, (byte)Zone, ClampColorValueToPercentage( NewColor.R ), ClampColorValueToPercentage( NewColor.G ), ClampColorValueToPercentage( NewColor.B ) );
-        }
-
-        /// <summary>
-        /// Shuts down the Logitech LED SDK and releases its native resources.
-        /// </summary>
-        public static void Shutdown()
-        {
-            LogitechNative.LogiLedShutdown();
         }
 
         private static sbyte ClampColorValueToPercentage( float Value )

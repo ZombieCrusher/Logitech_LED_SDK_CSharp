@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using LogitechSDK;
 
 public class Program
@@ -10,45 +7,45 @@ public class Program
     static void Main(string[] args)
     {
         // Initialize the LED SDK
-        bool LedInitialized = LogitechNative.LogiLedInitWithName("SetTargetZone Sample C#");
+        bool LedInitialized = Logitech.InitialiseAPI("SetTargetZone Sample C#");
 
         if (!LedInitialized)
         {
-            Console.WriteLine("LogitechNative.LogiLedInit() failed.");
+            Console.WriteLine("Logitech.InitialiseAPI() failed.");
             return;
         }
 
         Console.WriteLine("LED SDK Initialized");
 
-        LogitechNative.LogiLedSetTargetDevice(LogitechNative.LOGI_DEVICETYPE_ALL);
+        Logitech.SetLEDTargetDevice(TargetDevice.ALL);
 
         // Set all devices to Black
-        LogitechNative.LogiLedSetLighting(0, 0, 0);
+        Logitech.SetLEDLighting(Color.Black);
 
         // Set some keys on keyboard
-        LogitechNative.LogiLedSetLightingForKeyWithKeyName(keyboardNames.L, 0, 100, 100);
-        LogitechNative.LogiLedSetLightingForKeyWithKeyName(keyboardNames.O, 0, 100, 100);
-        LogitechNative.LogiLedSetLightingForKeyWithKeyName(keyboardNames.G, 0, 100, 100);
-        LogitechNative.LogiLedSetLightingForKeyWithKeyName(keyboardNames.I, 0, 100, 100);
+        Logitech.SetLEDLightOfKeyboardKey(KeyboardKeys.L, Color.Cyan);
+        Logitech.SetLEDLightOfKeyboardKey(KeyboardKeys.O, Color.Cyan);
+        Logitech.SetLEDLightOfKeyboardKey(KeyboardKeys.G, Color.Cyan);
+        Logitech.SetLEDLightOfKeyboardKey(KeyboardKeys.I, Color.Cyan);
 
         // Set RGB mouse logo to Red
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Mouse, 1, 100, 0, 0);
+        Logitech.SetLEDLightForTargetZoneForMouse(TargetZoneMouse.LOGO_SIDE, Color.Red);
 
         // Set G213 keyboard zones to Red, Yellow, Green, Cyan, Blue
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Keyboard, 1, 100, 0, 0);
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Keyboard, 2, 100, 100, 0);
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Keyboard, 3, 0, 100, 0);
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Keyboard, 4, 0, 100, 100);
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Keyboard, 5, 0, 0, 100);
+        Logitech.SetLEDLightForTargetZoneForKeyboard(TargetZoneKeyboard.LEFT_SIDE, Color.Red);
+        Logitech.SetLEDLightForTargetZoneForKeyboard(TargetZoneKeyboard.CENTRE_SIDE, Color.Yellow);
+        Logitech.SetLEDLightForTargetZoneForKeyboard(TargetZoneKeyboard.RIGHT_SIDE, Color.Green);
+        Logitech.SetLEDLightForTargetZoneForKeyboard(TargetZoneKeyboard.ARROW_KEYS_SIDE, Color.Cyan);
+        Logitech.SetLEDLightForTargetZoneForKeyboard(TargetZoneKeyboard.NUMPAD_KEYS_SIDE, Color.Blue);
 
         // Set G633/G933 headset logos to White, backsides to Purple
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Headset, 0, 100, 100, 100);
-        LogitechNative.LogiLedSetLightingForTargetZone(DeviceType.Headset, 1, 100, 0, 100);
+        Logitech.SetLEDLightForTargetZoneForHeadset(TargetZoneHeadset.LOGO_SIDE, Color.White);
+        Logitech.SetLEDLightForTargetZoneForHeadset(TargetZoneHeadset.BACK_SIDE, Color.Purple);
 
         Console.WriteLine("Press \"ENTER\" to continue...");
         Console.ReadLine();
 
         Console.WriteLine("LED SDK Shutting down");
-        LogitechNative.LogiLedShutdown();
+        Logitech.Shutdown();
     }
 }

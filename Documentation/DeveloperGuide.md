@@ -44,7 +44,7 @@ The SDK saves current lighting and stops existing effects during initialization.
 
 Methods that accept `System.Drawing.Color` convert each RGB channel from the .NET range `0–255` to the SDK range `0–100`. The conversion truncates fractional percentages. The alpha component of `Color` is not passed to the SDK.
 
-`SetLEDTargetDevice` sets the device *category* for subsequent operations; it does not select one physical device. `TargetDevice` is a flags enum, so combine categories with `|`. The native SDK defaults to all categories if no target is set. The C# wrapper's setter returns `void`, so it does not expose the native SDK's success result.
+`SetLEDTargetDevice` sets the device *category* for subsequent operations; it does not select one physical device. `TargetDevice` is a flags enum, so combine categories with `|`. The native SDK defaults to all categories if no target is set. The method returns the native SDK success result.
 
 ## API reference
 

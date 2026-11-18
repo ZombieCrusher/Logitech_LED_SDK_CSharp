@@ -5,7 +5,7 @@ namespace LogitechSDK
     /// <summary>
     /// Logitech SDK key names used by per-key lighting operations.
     /// </summary>
-    public enum KeyboardKeys
+    public enum KeyboardKeys : int
     {
         /// <summary>Escape key.</summary>
         ESC = 0x01,

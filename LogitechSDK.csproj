@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
-	  <Platforms>x64;x86</Platforms>
+	<Platforms>x64;x86</Platforms>
 	  
   </PropertyGroup>
 

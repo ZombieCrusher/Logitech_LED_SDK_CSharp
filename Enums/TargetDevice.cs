@@ -16,6 +16,6 @@ namespace LogitechSDK
         /// <summary>Devices with individually addressable RGB keys.</summary>
         PERKEY_RGB = 1 << 2,
         /// <summary>All supported device categories.</summary>
-        ALL = ( MONOCHROME | RGB | PERKEY_RGB )
+        ALL =  MONOCHROME | RGB | PERKEY_RGB 
     }
 }
